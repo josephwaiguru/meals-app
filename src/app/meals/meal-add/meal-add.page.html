@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Meal</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()">
+        Save
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="mealForm">
+    <ion-item>
+      <ion-label position="floating">Meal Name</ion-label>
+      <ion-input placeholder="Enter meal name" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Meal Type</ion-label>
+      <ion-select multiple="true" formControlName="categories" [value]="defaultCategories">
+        <ion-select-option [value]="category.id" *ngFor="let category of categories">{{category.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+</ion-content>

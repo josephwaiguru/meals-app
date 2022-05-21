@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Planner
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="scheduler ion-padding">
+  <div class="header">
+    <ion-icon (click)="prev()" name="chevron-back-outline"></ion-icon>
+    {{ currentWeekStr }}
+    <ion-icon (click)="next()" name="chevron-forward-outline"></ion-icon>
+  </div>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-between">
+      <ion-col [offset]="i === 0 ? 3 : 0" size="3" *ngFor="let cat of categories; let i = index;">{{ cat.name }}</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let day of weekDays" class="text-center">
+      <ion-col size="3">{{ day.format('MMM D') }}</ion-col>
+      <ion-col size="3" *ngFor="let cat of categories; let i = index;">
+        <ion-icon name="add-outline" color="primary" (click)="addSchedule(day.format('YYYY-MM-DD'), cat.id)"></ion-icon>
+        <div>
+          <ion-button color="primary" fill="outline" size="small" *ngFor="let meal of getDayCatMeals(day.format('YYYY-MM-DD'), cat.name)" class="mt-0" (click)="dayMealActions(meal, day, cat.name)">
+            {{ meal.name }}
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

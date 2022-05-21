@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary" *ngIf="!searchVisible">
+    <ion-title>
+      Meals
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleSearch(true)">        
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <div *ngIf="searchVisible">
+    <ion-button><ion-icon name="arrow-back-outline"></ion-icon></ion-button>    
+    <ion-searchbar (ionChange)="onSearch($event)" debounce="300" class="pt-1"></ion-searchbar>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let meal of filteredMeals" [routerLink]="['/tabs/meals/meal-edit', meal.id]" routerLinkActive="router-link-active" >
+      <ion-label class="mb-0">
+        <h2>{{ meal.name }}</h2>
+        <div class="mt-2">
+          <ion-badge class="mr-1 fill-outline" *ngFor="let cat of meal.categories">{{ cat.name }}</ion-badge>
+        </div>
+      </ion-label>
+    </ion-item> 
+
+    <ion-item *ngIf="meals.length === 0">No meals found. <a class="pl-1" routerLink="/tabs/meals/meal-add" routerLinkActive="router-link-active">Create meal</a>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addMeal()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

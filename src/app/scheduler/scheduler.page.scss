@@ -1,0 +1,15 @@
+.scheduler {
+    .header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    ion-row {
+        padding: 10px 0;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .meal-card {
+        border: 1px solid var(--ion-color-medium-shade);
+    }
+}
