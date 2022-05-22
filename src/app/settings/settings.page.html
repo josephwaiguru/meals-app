@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Settings
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="settingsForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Start day of Week</ion-label>
+        <ion-select formArrayName="startDayOfWeek">
+          <ion-select-option *ngFor="let dayOfWeek of daysOfWeek" [value]="dayOfWeek.id">{{ dayOfWeek.day }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <div class="p-2">
+      <ion-button expand="block">Save</ion-button>
+    </div>
+  </form>
+</ion-content>

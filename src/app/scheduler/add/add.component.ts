@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { MealsService } from 'src/app/services/meals.service';
 import { SchedulerService } from 'src/app/services/scheduler.service';
 
 @Component({
@@ -16,17 +17,22 @@ export class AddComponent implements OnInit {
 
   @Input() meal;
 
-  @Input() meals: any = [];
+  meals: any = [];
 
   filteredMeals: any = [];
 
   searchField: FormControl;
 
-  constructor(private modalCtrl: ModalController, private schedulerService: SchedulerService) { }
+  constructor(private mealsService: MealsService, private modalCtrl: ModalController, private schedulerService: SchedulerService) { }
 
   ngOnInit() {
     this.searchField = new FormControl();
     this.filteredMeals = this.meals;
+  }
+
+  getMeals() {
+    this.mealsService.getAll().subscribe(res => this.meals = res.data.filter(meal =>
+      meal.categories.some(cat => cat.id === this.category)));
   }
 
   onSearch(e) {

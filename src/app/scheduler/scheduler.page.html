@@ -18,7 +18,7 @@
       <ion-col [offset]="i === 0 ? 3 : 0" size="3" *ngFor="let cat of categories; let i = index;">{{ cat.name }}</ion-col>
     </ion-row>
     <ion-row *ngFor="let day of weekDays" class="text-center">
-      <ion-col size="3">{{ day.format('MMM D') }}</ion-col>
+      <ion-col size="3" [ngClass]="{ 'today': isToday(day) }">{{ day.format('MMM D') }}</ion-col>
       <ion-col size="3" *ngFor="let cat of categories; let i = index;">
         <ion-icon name="add-outline" color="primary" (click)="addSchedule(day.format('YYYY-MM-DD'), cat.id)"></ion-icon>
         <div>

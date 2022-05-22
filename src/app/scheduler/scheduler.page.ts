@@ -26,8 +26,6 @@ export class SchedulerPage implements OnInit {
 
   categories: Array<any> = [];
 
-  meals: Array<any> = [];
-
   schedules: Array<any> = [];
 
   constructor(
@@ -47,8 +45,6 @@ export class SchedulerPage implements OnInit {
 
     this.getSchedules();
 
-    this.getMeals();
-
     this.selectedDate = moment();
 
     this.setWeek();
@@ -62,10 +58,6 @@ export class SchedulerPage implements OnInit {
 
   getSchedules() {
     this.schedulerService.getAll().subscribe(res => this.schedules = res.data);
-  }
-
-  getMeals() {
-    this.mealsService.getAll().subscribe(res => this.meals = res.data);
   }
 
   setWeek() {
@@ -107,7 +99,6 @@ export class SchedulerPage implements OnInit {
       componentProps: {
         date,
         category,
-        meals: this.meals.filter(meal => meal.categories.some(cat => cat.id === category))
       }
     });
 
@@ -188,5 +179,10 @@ export class SchedulerPage implements OnInit {
     await actionSheet.present();
 
     const { role, data } = await actionSheet.onDidDismiss();
+  }
+
+  // Returns true if the date is today
+  isToday(date: moment.Moment) {
+    return moment().format('DD-MM-YYYY') === date.format('DD-MM-YYYY');
   }
 }

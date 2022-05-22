@@ -44,7 +44,19 @@ export class MealAddPage implements OnInit {
   }
 
   async getCategories() {
-    await this.mealsService.getCategories().subscribe(res => this.categories = res.data);
+    await this.mealsService.getCategories().subscribe(res => this.categories = res.data.sort((a, b) => {
+      const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    }));
   }
 
   save() {
